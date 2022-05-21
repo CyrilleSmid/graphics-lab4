@@ -16,42 +16,40 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef TECHNIQUE_H
-#define	TECHNIQUE_H
+#ifndef CUBEMAP_H
+#define	CUBEMAP_H
 
-#include <list>
+#include <string>
 #include <GL/glew.h>
+//#include <ImageMagick/Magick++.h> TODO: CHANGE
+#include <Magick++/Image.h>
+#include <Magick++/Blob.h>
 
-class Technique
+using namespace std;
+
+class CubemapTexture
 {
 public:
+    
+    CubemapTexture(const string& Directory,
+                   const string& PosXFilename,
+                   const string& NegXFilename,
+                   const string& PosYFilename,
+                   const string& NegYFilename,
+                   const string& PosZFilename,
+                   const string& NegZFilename);
 
-    Technique();
+    ~CubemapTexture();
+    
+    bool Load();
 
-    ~Technique();
-
-    virtual bool Init();
-
-    void Enable();
-
-protected:
-
-    bool AddShader(GLenum ShaderType, const char* pShaderText);
-
-    bool Finalize();
-
-    GLint GetUniformLocation(const char* pUniformName);
+    void Bind(GLenum TextureUnit);
 
 private:
-
-    GLuint m_shaderProg;
-
-    typedef std::list<GLuint> ShaderObjList;
-    ShaderObjList m_shaderObjList;
+   
+    string m_fileNames[6];
+    GLuint m_textureObj;
 };
 
-#define INVALID_UNIFORM_LOCATION 0xFFFFFFFF
-
-
-#endif	/* TECHNIQUE_H */
+#endif	/* CUBEMAP_H */
 

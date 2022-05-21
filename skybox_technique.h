@@ -1,6 +1,5 @@
 /*
-
-	Copyright 2011 Etay Meiri
+        Copyright 2011 Etay Meiri
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -16,25 +15,30 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef CALLBACKS_H
-#define	CALLBACKS_H
+#ifndef SKYBOX_TECHNIQUE_H
+#define	SKYBOX_TECHNIQUE_H
 
-class ICallbacks
-{
+#include "technique.h"
+#include "math_3d.h"
+
+
+class SkyboxTechnique : public Technique {
 public:
 
-    virtual void SpecialKeyboardCB(int Key, int x, int y) = 0;
+    SkyboxTechnique();
 
-    virtual void KeyboardCB(unsigned char Key, int x, int y) = 0;
+    virtual bool Init();
 
-    virtual void PassiveMouseCB(int x, int y) = 0;
+    void SetWVP(const Matrix4f& WVP);
+    void SetTextureUnit(unsigned int TextureUnit);
 
-    virtual void RenderSceneCB() = 0;
+    virtual ~SkyboxTechnique();
 
-    virtual void IdleCB() = 0;
-    
-    //virtual ~ICallbacks() {};
+private:
+
+    GLuint m_WVPLocation;
+    GLuint m_textureLocation;
 };
 
-#endif	/* I3DAPPLICATION_H */
 
+#endif	/* SKYBOX_TECHNIQUE_H */
