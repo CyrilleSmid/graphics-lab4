@@ -215,6 +215,8 @@ int main(int argc, char** argv)
         return 1;
     }
 
+    Magick::InitializeMagick(nullptr); // TODO: CHANGE
+
     Main* pApp = new Main();
 
     if (!pApp->Init()) {
